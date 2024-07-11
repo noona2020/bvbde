@@ -1,31 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Base64 Decoder</title>
-</head>
-<body>
-    <h1>Odkodowany tekst:</h1>
-    <div id="decodedText"></div>
+<html>
+<script type="text/javascript" src="b64.js"></script>
+<script type="text/javascript" src="api.js"></script>
+<script type="text/javascript">
+if (window.location.hash) {
+  // Try to get page data from the URL if possible
+  var hash = window.location.hash.slice(1);
+  var data = b64.decode(hash);
 
-    <script>
-        function getParameterByName(name, url = window.location.href) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        let base64String = getParameterByName('b');
-
-        if (base64String) {
-            let decodedString = atob(base64String);
-            document.getElementById('decodedText').textContent = decodedString;
-        } else {
-            document.getElementById('decodedText').textContent = 'Brak parametru "b" w URL';
-        }
-    </script>
-</body>
+  try {
+    var urlDataObject = JSON.parse(data);
+    var api = apiVersions[urlDataObject.version];
+    document.write(api.decode(urlDataObject));
+  } catch (err) {
+    document.write(decodeURIComponent(data));
+  }
+} else {
+  // Otherwise redirect to the editor
+  window.location.replace("./editor");
+}
+</script>
 </html>
