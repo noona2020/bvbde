@@ -1,22 +1,40 @@
-<html>
-<script type="text/javascript" src="b64.js"></script>
-<script type="text/javascript" src="api.js"></script>
-<script type="text/javascript">
-if (window.location.hash) {
-  // Try to get page data from the URL if possible
-  var hash = window.location.hash.slice(1);
-  var data = b64.decode(hash);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Page</title>
+  <script type="text/javascript" src="b64.js"></script>
+  <script type="text/javascript" src="api.js"></script>
+</head>
+<body>
+  <script type="text/javascript">
+    if (window.location.hash) {
+      var hash = window.location.hash.slice(1);
+      var params = new URLSearchParams(hash);
+      var mainData = params.get('main');
+      var papaData = params.get('papa');
 
-  try {
-    var urlDataObject = JSON.parse(data);
-    var api = apiVersions[urlDataObject.version];
-    document.write(api.decode(urlDataObject));
-  } catch (err) {
-    document.write(decodeURIComponent(data));
-  }
-} else {
-  // Otherwise redirect to the editor
-  window.location.replace("./editor");
-}
-</script>
+      if (mainData) {
+        var data = b64.decode(mainData);
+        try {
+          var urlDataObject = JSON.parse(data);
+          var api = apiVersions[urlDataObject.version];
+          document.write(api.decode(urlDataObject));
+        } catch (err) {
+          document.write(decodeURIComponent(data));
+        }
+      }
+
+      if (papaData) {
+        var papaDecoded = b64.decode(papaData);
+        document.write("<br>Papa data: " + decodeURIComponent(papaDecoded));
+      }
+
+    } else {
+      // Otherwise redirect to the editor
+      window.location.replace("./editor");
+    }
+  </script>
+</body>
 </html>
