@@ -1,33 +1,13 @@
-/**
- * api.js
- *
- * API For encoding and decoding URL hash objects
- *
- * Created by Jacob Strieb
- * July 2020
- */
-
-
-/*******************************************************************************
- * Global Variables
- ******************************************************************************/
-
 const LATEST_API_VERSION = "0.2.0";
 
 var apiVersions = {};
-
-
-
-/*******************************************************************************
- * API Version 0.2.0 (Latest)
- ******************************************************************************/
 
 apiVersions["0.2.0"] = {
 
   VERSION: "0.2.0",
 
   /* Return a link to view the page */
-  getViewLink: function(pageData) {
+  getViewLink: function(pageData, papaData = null) {
     var urlData = {
       version: this.VERSION,
       compressed: false,
@@ -35,7 +15,14 @@ apiVersions["0.2.0"] = {
     };
 
     const hashObject = b64.encode(JSON.stringify(urlData));
-    return `http://jstrieb.github.io/urlpages/#${hashObject}`;
+    let link = `http://jstrieb.github.io/urlpages/#main=${hashObject}`;
+
+    if (papaData) {
+      const papaEncoded = b64.encode(papaData);
+      link += `&papa=${papaEncoded}`;
+    }
+
+    return link;
   },
 
   /* Return the page data from the object */
@@ -44,12 +31,6 @@ apiVersions["0.2.0"] = {
   },
 
 }
-
-
-
-/*******************************************************************************
- * API Version 0.0.1 (Original)
- ******************************************************************************/
 
 apiVersions["0.0.1"] = {
 
