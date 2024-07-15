@@ -3,38 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>URL Page</title>
-  <script type="text/javascript" src="b64.js"></script>
-  <script type="text/javascript" src="api.js"></script>
+  <title>Base64 Decoder</title>
 </head>
 <body>
-  <script type="text/javascript">
-    if (window.location.hash) {
-      var hash = window.location.hash.slice(1);
-      var params = new URLSearchParams(hash);
-      var mainData = params.get('main');
-      var papaData = params.get('papa');
+  <div id="content"></div>
 
-      if (mainData) {
-        var data = b64.decode(mainData);
-        try {
-          var urlDataObject = JSON.parse(data);
-          var api = apiVersions[urlDataObject.version];
-          document.write(api.decode(urlDataObject));
-        } catch (err) {
-          document.write(decodeURIComponent(data));
-        }
-      }
-
-      if (papaData) {
-        var papaDecoded = b64.decode(papaData);
-        document.write("<br>Papa data: " + decodeURIComponent(papaDecoded));
-      }
-
-    } else {
-      // Otherwise redirect to the editor
-      window.location.replace("./editor");
-    }
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
